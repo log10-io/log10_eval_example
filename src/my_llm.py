@@ -1,12 +1,35 @@
 from magentic import prompt
+from magentic import chatprompt, SystemMessage, UserMessage
 from log10.load import log10
 import openai
 
 log10(openai)
 
 
-@prompt("Summerize the article in 30 words.\n Article: {article}")
-def summerize_to_30_words(article: str) -> str:
+@prompt("Summarize the article in 30 words.\n Article: {article}")
+def summarize_to_30_words(article: str) -> str:
+    ...
+
+
+sys_message_1 = SystemMessage("Summarize the article in 30 words.")
+sys_message_2 = SystemMessage(
+    "Summarize article into concise overview, focuing on the main points and conclusion."
+)
+
+
+@chatprompt(
+    sys_message_1,
+    UserMessage("Article: {article}"),
+)
+def summarize_with_sys_prompt_1(article: str) -> str:
+    ...
+
+
+@chatprompt(
+    sys_message_2,
+    UserMessage("Article: {article}"),
+)
+def summarize_with_sys_prompt_2(article: str) -> str:
     ...
 
 
@@ -24,7 +47,7 @@ The next in the series, Children of Ruin, was published in 2019, followed by Chi
 
 In 2023 the series was awarded the Hugo Award for Best Series.
 """
-    print(summerize_to_30_words(article))
+    print(summarize_to_30_words(article))
 
 
 if __name__ == "__main__":
