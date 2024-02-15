@@ -1,3 +1,4 @@
+import pytest
 import sys
 import os
 
@@ -8,8 +9,8 @@ from my_llm import summerize_to_30_words
 from my_eval_metrics import cosine_similarity
 
 
-@pytest.mark.repeat(5)
-def test_summerize():
+@pytest.mark.repeat(3)
+def test_summerize(results_bag):
     article = """
 Children of Time is a 2015 science fiction novel by author Adrian Tchaikovsky.
 
@@ -28,4 +29,8 @@ In 2023 the series was awarded the Hugo Award for Best Series.
 """
     output = summerize_to_30_words(article)
     metric = cosine_similarity(expected_summary, output)
-    print(metric)
+    results_bag.cos_sim = metric
+
+def test_mean_cosine_similarity(module_results_df):
+    print(module_results_df)
+    print("Average cosine similarity: " module_results_df["cos_sim"].mean())
