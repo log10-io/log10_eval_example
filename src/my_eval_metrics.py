@@ -1,19 +1,29 @@
+import re
+from typing import List, Tuple
 from openai import OpenAI
 from scipy import spatial
 
 client = OpenAI()
 
 
-def get_embedding(text, model="text-embedding-3-small"):
+def get_embedding(text: str, model: str = "text-embedding-3-small") -> List[float]:
     text = text.replace("\n", " ")
     return client.embeddings.create(input=[text], model=model).data[0].embedding
 
 
-def cosine_similarity(refence_text, text):
+def cosine_similarity(refence_text: str, text: str) -> float:
     ref_embedding = get_embedding(refence_text)
     text_embedding = get_embedding(text)
     cosine_similarity = spatial.distance.cosine(ref_embedding, text_embedding)
     return cosine_similarity
+
+
+def count_words(text: str) -> int:
+    # Remove symbols and keep only alphanumeric characters and spaces
+    clean_string = re.sub(r"[^\w\s]", "", text)
+    # Split the string into words and count the number of words
+    word_count = len(clean_string.split())
+    return word_count
 
 
 def main():
