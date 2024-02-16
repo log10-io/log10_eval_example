@@ -85,9 +85,21 @@ def test_pass_rate_of_30_words(module_results_df):
         module_results_df["test_name"].str.contains("test_summarize_to_30_words")
     ]
     pass_rate = len(df[df["status"] == "passed"]) / len(df)
+
+    df["article_long"] = df["article"]
+    df["article_id"] = df["test_name"].str.split("_").str[-1]
+    df["article"] = df.apply(lambda row: row["article_long"][:50] + f"... [more](#article-{row['article_id']})", axis=1)
+
+    # get unique articles
+    unique_articles = df["article_long"].unique()
+    # import ipdb; ipdb.set_trace()
+    long_articles_section = "## Long Articles\n\n"
+    for i, text in enumerate(unique_articles):
+        long_articles_section += f"### Article {i}\n"
+        long_articles_section += f"{text}\n\n"
+
     selected_df = df[
         [
-            "test_name",
             "status",
             "article",
             "expected_summary",
@@ -97,10 +109,16 @@ def test_pass_rate_of_30_words(module_results_df):
         ]
     ]
     table = tabulate(selected_df, headers="keys", tablefmt="pipe", showindex=True)
-    with open("test_30_words_table.md", "w") as f:
+
+    output_dir = os.environ.get("OUTPUT_REPORT_DIR", "generated_reports")
+    if not os.path.exists(output_dir):
+        os.makedirs(output_dir)
+    with open(f"{output_dir}/test_30_words_table.md", "w") as f:
         f.write("Generated from test_my_llm::test_pass_rate_of_30_words\n\n")
+        f.write(f"## Test Pass Rate\nPass rate: {pass_rate * 100:.1f}%\n\n")
+        f.write("## Detailed Results\n\n")
         f.write(table + "\n\n")
-        f.write(f"## Test Pass Rate\nPass rate: {pass_rate * 100:.1f}%")
+        f.write(long_articles_section)
     assert pass_rate > 0.66
 
 
@@ -145,6 +163,18 @@ def test_compare_prompts_results(module_results_df):
     mean_2 = df[df["test_name"].str.contains("sys_prompt_2")]["cos_sim"].mean()
     std_2 = df[df["test_name"].str.contains("sys_prompt_2")]["cos_sim"].std()
 
+    # remove new lines in output
+    df["output"] = df["output"].str.replace("\n", " ")
+    df["article_long"] = df["article"]
+    df["article_id"] = df["test_name"].str.split("_").str[-1]
+    df["article"] = df.apply(lambda row: row["article_long"][:50] + f"... [more](#article-{row['article_id']})", axis=1)
+
+    unique_articles = df["article_long"].unique()
+    long_articles_section = "## Long Articles\n\n"
+    for i, text in enumerate(unique_articles):
+        long_articles_section += f"### Article {i}\n"
+        long_articles_section += f"{text}\n\n"
+
     # generate a markdown table for the results
     markdown_table = f"""
 | Prompt | Mean Cosine Similarity | Std Dev |
@@ -154,7 +184,6 @@ def test_compare_prompts_results(module_results_df):
 """
     selected_df = df[
         [
-            "test_name",
             "prompt",
             "article",
             "expected_summary",
@@ -162,10 +191,15 @@ def test_compare_prompts_results(module_results_df):
             "cos_sim",
         ]
     ]
-    table = tabulate(selected_df, headers="keys", tablefmt="pipe")
-    with open("prompt_comparison_report.md", "w") as f:
+    table = tabulate(selected_df, headers="keys", tablefmt="pipe", floatfmt=".3f", showindex=False)
+    output_dir = os.environ.get("OUTPUT_REPORT_DIR", "generated_reports")
+    # check if the output directory exists and create it if it doesn't
+    if not os.path.exists(output_dir):
+        os.makedirs(output_dir)
+    with open(f"{output_dir}/prompt_comparison_report.md", "w") as f:
         f.write("generated from test_my_llm::test_compare_prompts_results\n\n")
         f.write("Compare the mean cosine similarity of the two system prompts\n\n")
         f.write(markdown_table + "\n\n")
         f.write("## Detailed Results\n\n")
         f.write(table + "\n\n")
+        f.write(long_articles_section)
