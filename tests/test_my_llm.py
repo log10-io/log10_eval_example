@@ -15,7 +15,7 @@ from my_llm import (
     sys_message_1,
     sys_message_2,
 )
-from my_eval_metrics import cosine_similarity, count_words
+from my_eval_metrics import cosine_distance, count_words
 
 
 @pytest.fixture
@@ -49,15 +49,15 @@ def data():
 @pytest.mark.repeat(3)
 def test_simple(article, expected_summary, results_bag):
     output = summarize_to_30_words(article)
-    metric = cosine_similarity(expected_summary, output)
+    metric = cosine_distance(expected_summary, output)
 
     results_bag.cos_sim = metric
     assert metric < 0.2
 
 
 def test_mean_cosine_similarity(module_results_df):
-    print("Average cosine similarity: ", module_results_df["cos_sim"].mean())
-    print("Std dev of cosine similarity: ", module_results_df["cos_sim"].std())
+    print("Average cosine distance: ", module_results_df["cos_sim"].mean())
+    print("Std dev of cosine distance: ", module_results_df["cos_sim"].std())
 
     assert module_results_df["cos_sim"].mean() < 0.2
 
@@ -67,7 +67,7 @@ def test_mean_cosine_similarity(module_results_df):
 def test_summarize_to_30_words(data, sample_idx, results_bag):
     article, expected_summary = data[sample_idx]
     output = summarize_to_30_words(article)
-    metric = cosine_similarity(expected_summary, output)
+    metric = cosine_distance(expected_summary, output)
     num_words = count_words(output)
 
     results_bag.test_name = f"test_summarize_to_30_words_{sample_idx}"
@@ -127,7 +127,7 @@ def test_pass_rate_of_30_words(module_results_df):
 def test_summarize_with_sys_prompt_1(data, sample_idx, results_bag):
     article, expected_summary = data[sample_idx]
     output = summarize_with_sys_prompt_1(article)
-    metric = cosine_similarity(expected_summary, output)
+    metric = cosine_distance(expected_summary, output)
 
     results_bag.test_name = f"test_summarize_sys_prompt_1_{sample_idx}"
     results_bag.article = article
@@ -142,7 +142,7 @@ def test_summarize_with_sys_prompt_1(data, sample_idx, results_bag):
 def test_summarize_with_sys_prompt_2(data, sample_idx, results_bag):
     article, expected_summary = data[sample_idx]
     output = summarize_with_sys_prompt_2(article)
-    metric = cosine_similarity(expected_summary, output)
+    metric = cosine_distance(expected_summary, output)
 
     results_bag.test_name = f"test_summarize_sys_prompt_2_{sample_idx}"
     results_bag.article = article
@@ -177,7 +177,7 @@ def test_compare_prompts_results(module_results_df):
 
     # generate a markdown table for the results
     markdown_table = f"""
-| Prompt | Mean Cosine Similarity | Std Dev |
+| Prompt | Mean Cosine distance | Std Dev |
 |--------|------------------------| --------|
 | sys_prompt_1 | {mean_1:.3f} | {std_1:.3f} |
 | sys_prompt_2 | {mean_2:.3f} | {std_2:.3f} |
@@ -198,7 +198,7 @@ def test_compare_prompts_results(module_results_df):
         os.makedirs(output_dir)
     with open(f"{output_dir}/prompt_comparison_report.md", "w") as f:
         f.write("generated from test_my_llm::test_compare_prompts_results\n\n")
-        f.write("Compare the mean cosine similarity of the two system prompts\n\n")
+        f.write("Compare the mean cosine distance of the two system prompts\n\n")
         f.write(markdown_table + "\n\n")
         f.write("## Detailed Results\n\n")
         f.write(table + "\n\n")

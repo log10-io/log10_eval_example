@@ -1,5 +1,5 @@
 import re
-from typing import List, Tuple
+from typing import List
 from openai import OpenAI
 from scipy import spatial
 
@@ -11,7 +11,7 @@ def get_embedding(text: str, model: str = "text-embedding-3-small") -> List[floa
     return client.embeddings.create(input=[text], model=model).data[0].embedding
 
 
-def cosine_similarity(refence_text: str, text: str) -> float:
+def cosine_distance(refence_text: str, text: str) -> float:
     ref_embedding = get_embedding(refence_text)
     text_embedding = get_embedding(text)
     cosine_similarity = spatial.distance.cosine(ref_embedding, text_embedding)
