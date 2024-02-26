@@ -22,15 +22,15 @@ pip install -r requirements.txt
 Run all tests `pytest tests -s -v`
 
 After running the tests, some tests generate reports in markdown format, saved in [`./generated_reports`](./generated_reports/).
-* Test `test_pass_rate_of_30_words` generates the report file [`test_30_words_table.md`](./generated_reports/test_30_words_table.md).
-* Test `test_compare_prompts_results` generates a report file [`prompt_comparison_report.md`](./generated_reports/prompt_comparison_report.md).
+* Test `test_pass_rate_of_30_words` generates the report file [`test_summarize_to_30_words.md`](./generated_reports/test_summarize_to_30_words.md).
+* Test `test_compare_prompts_results` generates a report file [`test_compare_prompts_results.md`](./generated_reports/test_compare_prompts_results.md).
 
 You can run selected test to generate each reports: 
 ```
-# test_30_words_table report
+# test_summarize_to_30_words.md
 pytest tests/test_my_llm.py -k "test_summarize_to_30_words or test_pass_rate_of_30_words" -s
 
-# prompt_comparison_report
+# test_compare_prompts_results.md
 pytest tests/test_my_llm.py -k "test_summarize_with_sys_prompt_1 or test_summarize_with_sys_prompt_2 or test_compare_prompts_results" -s
 ```
 
