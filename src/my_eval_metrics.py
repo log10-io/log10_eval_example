@@ -14,8 +14,8 @@ def get_embedding(text: str, model: str = "text-embedding-3-small") -> List[floa
 def cosine_distance(refence_text: str, text: str) -> float:
     ref_embedding = get_embedding(refence_text)
     text_embedding = get_embedding(text)
-    cosine_similarity = spatial.distance.cosine(ref_embedding, text_embedding)
-    return cosine_similarity
+    cosine_distance = spatial.distance.cosine(ref_embedding, text_embedding)
+    return cosine_distance
 
 
 def count_words(text: str) -> int:
@@ -30,7 +30,7 @@ def main():
     text_1 = "Once upon a time, in a land far, far away, there was a little"
     text_2 = "Once upon a time, in a land far, far away, there was"
 
-    print(cosine_similarity(text_1, text_2))
+    print(cosine_distance(text_1, text_2))
 
 
 if __name__ == "__main__":

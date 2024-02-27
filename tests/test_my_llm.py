@@ -92,8 +92,7 @@ def _prepare_long_string_section(dataframe: pd.DataFrame, column_name: str) -> s
     dataframe[f"{column_name}_long"] = dataframe[column_name]
     dataframe[f"{column_name}_id"] = dataframe["test_name"].str.split("_").str[-1]
     dataframe[column_name] = dataframe.apply(
-        lambda row: row[f"{column_name}_long"][:50]
-        + f"... [more](#article-{row[f'{column_name}_id']})",
+        lambda row: row[f"{column_name}_long"][:50] + f"... [more](#article-{row[f'{column_name}_id']})",
         axis=1,
     )
 
@@ -161,9 +160,7 @@ def test_summarize_with_sys_prompt_2(data: list, sample_idx: int, results_bag):
 
 
 def test_compare_prompts_results(module_results_df: pd.DataFrame):
-    df = module_results_df[
-        module_results_df["test_name"].str.contains("test_summarize_sys_prompt_")
-    ]
+    df = module_results_df[module_results_df["test_name"].str.contains("test_summarize_sys_prompt_")]
     # save df to csv
     df.to_csv("module_results_df.csv", index=True)
 
@@ -174,19 +171,23 @@ def test_compare_prompts_results(module_results_df: pd.DataFrame):
     std_2 = df[df["test_name"].str.contains("sys_prompt_2")]["cos_sim"].std()
 
     # Create a new dataframe
-    summary_df = pd.DataFrame({
-        "Prompt": ["sys_prompt_1", "sys_prompt_2"],
-        "Mean Cosine distance": [mean_1, mean_2],
-        "Std Dev": [std_1, std_2]
-    })
+    summary_df = pd.DataFrame(
+        {
+            "Prompt": ["sys_prompt_1", "sys_prompt_2"],
+            "Mean Cosine distance": [mean_1, mean_2],
+            "Std Dev": [std_1, std_2],
+        }
+    )
 
     # plot summary_df to a bar chart and save to file
     plot_file = "generated_reports/test_compare_prompts_results.png"
     summary_df.plot(kind="bar", x="Prompt", y="Mean Cosine distance", yerr="Std Dev")
     plt.savefig(plot_file)
 
-    markdown_table= tabulate(summary_df, headers="keys", tablefmt="pipe", showindex=False)
-    prompt_comp_section = "## Prompt Comparison\n\n" + markdown_table + "\n\n![Prompt Comparison](test_compare_prompts_results.png)"
+    markdown_table = tabulate(summary_df, headers="keys", tablefmt="pipe", showindex=False)
+    prompt_comp_section = (
+        "## Prompt Comparison\n\n" + markdown_table + "\n\n![Prompt Comparison](test_compare_prompts_results.png)"
+    )
 
     # remove new lines in output
     df["output"] = df["output"].str.replace("\n", " ")

@@ -14,9 +14,7 @@ def summarize_to_30_words(article: str) -> str:
 
 
 sys_message_1 = SystemMessage("Summarize the article in 30 words.")
-sys_message_2 = SystemMessage(
-    "Summarize article into concise overview, focuing on the main points and conclusion."
-)
+sys_message_2 = SystemMessage("Summarize article into concise overview, focuing on the main points and conclusion.")
 
 
 @chatprompt(

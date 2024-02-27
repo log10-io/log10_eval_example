@@ -4,12 +4,8 @@ from tabulate import tabulate
 from typing import List, Tuple
 
 
-def filter_results_by_test_name(
-    module_results_df: pd.DataFrame, test_name_prefix: str
-) -> pd.DataFrame:
-    filtered_df = module_results_df[
-        module_results_df["test_name"].str.contains(test_name_prefix)
-    ]
+def filter_results_by_test_name(module_results_df: pd.DataFrame, test_name_prefix: str) -> pd.DataFrame:
+    filtered_df = module_results_df[module_results_df["test_name"].str.contains(test_name_prefix)]
     return filtered_df
 
 
