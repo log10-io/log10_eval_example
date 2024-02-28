@@ -8,6 +8,8 @@ jobs:
   add-comment:
     runs-on: ubuntu-latest
     steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
       - name: Add report to the issue as a comment
         uses: peter-evans/create-or-update-comment@v4
         with:
