@@ -24,13 +24,13 @@ jobs:
       #     pip install -r requirements.txt
 
       # Add additional steps to install other dependencies if required
-      # - name: Run pytest and generate report
-      #   run: pytest tests/test_my_llm.py -k "test_summarize_to_30_words or test_pass_rate_of_30_words"
-      #   env:
-      #     LOG10_URL: ${{ secrets.LOG10_URL }}
-      #     LOG10_TOKEN: ${{ secrets.LOG10_TOKEN }}
-      #     LOG10_ORG_ID: ${{ secrets.LOG10_ORG_ID }}
-      #     OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+      - name: Run pytest and generate report
+        run: pytest tests/test_my_llm.py -k "test_summarize_to_30_words or test_pass_rate_of_30_words"
+        env:
+          LOG10_URL: ${{ secrets.LOG10_URL }}
+          LOG10_TOKEN: ${{ secrets.LOG10_TOKEN }}
+          LOG10_ORG_ID: ${{ secrets.LOG10_ORG_ID }}
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
 
 
       - name: Add report to the issue as a comment
