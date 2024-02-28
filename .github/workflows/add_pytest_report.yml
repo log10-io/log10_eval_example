@@ -34,13 +34,7 @@ jobs:
 
 
       - name: Add report to the issue as a comment
-        uses: actions/github-script@v5
+        uses: peter-evans/create-or-update-comment@v4
         with:
-          github-token: ${{ secrets.GITHUB_TOKEN }}
-          script: |
-            github.issues.createComment({
-              issue_number: context.issue.number,
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              body: 'require('fs').readFileSync('generated_reports/test_summarize_to_30_words.md', 'utf8')
-            })
+          issue-number: ${{ github.event.issue.number }}
+          body-path: 'generated_reports/test_summarize_to_30_words.md'
