@@ -8,14 +8,8 @@ jobs:
   add-comment:
     runs-on: ubuntu-latest
     steps:
-      - name: Add a comment to the issue
-        uses: actions/github-script@v5
+      - name: Add report to the issue as a comment
+        uses: peter-evans/create-or-update-comment@v4
         with:
-          github-token: ${{ secrets.GITHUB_TOKEN }}
-          script: |
-            github.issues.createComment({
-              issue_number: context.issue.number,
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              body: 'Thank you for opening this issue! We will look into it.'
-            })
+          issue-number: 1
+          body-path: 'generated_reports/test_summarize_to_30_words.md'
