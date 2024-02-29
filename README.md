@@ -8,6 +8,8 @@ An example on adding tests for your LLM application.
 
 ...
 
+[Demo video](https://www.loom.com/share/45dbb0f182194f0e81321c38497d1766?sid=7544b20b-2165-402d-bf50-0be577579cd2)
+
 ## Installation
 ```
 # Start your virtual environment
@@ -33,6 +35,9 @@ pytest tests/test_my_llm.py -k "test_summarize_to_30_words or test_pass_rate_of_
 # test_compare_prompts_results.md
 pytest tests/test_my_llm.py -k "test_summarize_with_sys_prompt_1 or test_summarize_with_sys_prompt_2 or test_compare_prompts_results" -s
 ```
+
+## CI/CD integration
+Integration with Github Action and attach report in PR comments. [Example](pull/9) 
 
 ## Misc
 The dataframe is saved to `module_results_df.csv`. 
