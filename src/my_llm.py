@@ -8,7 +8,7 @@ log10(openai)
 
 
 # in order to make it work in 30 words, we need to prompt for less words
-@prompt("Summarize the article in 25 words.\n Article: {article}")
+@prompt("Summarize the article in 30 words.\n Article: {article}")
 def summarize_to_30_words(article: str) -> str:
     ...
 
