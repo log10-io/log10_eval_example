@@ -18,10 +18,12 @@ def report_pass_rate(dataframe: pd.DataFrame) -> Tuple[float, str]:
     return pass_rate, report_str
 
 
-def generate_results_table(dataframe: pd.DataFrame, column_list: list[str]) -> str:
-    selected_df = dataframe[column_list]
+def generate_results_table(dataframe: pd.DataFrame, column_list: list[str] = None, section_name : str = "") -> str:
+    selected_df = dataframe[column_list] if column_list else dataframe
+    section_name = f"## {section_name}" if section_name else "## Test Results"
+
     table = tabulate(selected_df, headers="keys", tablefmt="pipe", showindex=True)
-    ret_str = f"## Test Results\n{table}"
+    ret_str = f"{section_name}\n{table}"
     return ret_str
 
 

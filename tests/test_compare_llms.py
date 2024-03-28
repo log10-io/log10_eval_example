@@ -51,6 +51,10 @@ def test_anthropic_models(data: list, sample_idx: int, model: str, results_bag):
 
 def test_compare_llms(module_results_df):
     df = module_results_df
+    # # load df from csv file `compare_llms_results.csv`
+    # import pandas as pd
+    # df = pd.read_csv("compare_llms_results.csv")
+
     df = df.sort_values("sample_idx")
     long_articles_section = _prepare_long_string_section(df, "article")
     selected_columns = [
@@ -59,5 +63,12 @@ def test_compare_llms(module_results_df):
         "duration_ms",
         "output",
     ]
+
     detailed_results = generate_results_table(df, selected_columns)
-    generate_markdown_report("test_compare_llms", [detailed_results, long_articles_section])
+
+    # generate a table indexed by "article" and "model" columns, each cell contains the "output" value
+    pivot_table = df.pivot(index="article", columns="model", values="output")
+    pivot_table = generate_results_table(pivot_table)
+
+
+    generate_markdown_report("test_compare_llms", [pivot_table, detailed_results, long_articles_section])
