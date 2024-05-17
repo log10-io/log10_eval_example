@@ -6,6 +6,7 @@ import sys
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "src")))
 
 from party_host import adjust_for_guest
+from get_weather import weather_of
 
 
 @pytest.mark.parametrize(
@@ -29,3 +30,15 @@ def test_adjust_for_guest(statement, expected):
     assert func.function.__name__ == expected["function"]
     assert func.arguments == expected["arguments"]
     assert output == expected["final"]
+
+
+def test_weather_of():
+    final_response, intermediate_tool_call = weather_of("HQ of OpenAI")
+
+    # check intermediate tool call is correct
+    assert len(intermediate_tool_call) == 1
+    assert intermediate_tool_call[0].function.name == "get_current_weather"
+    assert intermediate_tool_call[0].function.arguments == '{"location":"San Francisco, CA"}'
+
+    # check final response is correct
+    assert "San Francisco" in final_response and "72" in final_response
