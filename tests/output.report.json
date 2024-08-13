@@ -1,0 +1,179 @@
+{
+    "collectors": [
+        {
+            "nodeid": "",
+            "outcome": "passed",
+            "result": [
+                {
+                    "nodeid": "tests/test_use_json_report.py",
+                    "type": "Module"
+                }
+            ]
+        },
+        {
+            "nodeid": "tests/test_use_json_report.py",
+            "outcome": "passed",
+            "result": [
+                {
+                    "lineno": 42,
+                    "nodeid": "tests/test_use_json_report.py::test_summarize_to_30_words[0]",
+                    "type": "Function"
+                },
+                {
+                    "lineno": 42,
+                    "nodeid": "tests/test_use_json_report.py::test_summarize_to_30_words[1]",
+                    "type": "Function"
+                },
+                {
+                    "lineno": 42,
+                    "nodeid": "tests/test_use_json_report.py::test_summarize_to_30_words[2]",
+                    "type": "Function"
+                },
+                {
+                    "lineno": 69,
+                    "nodeid": "tests/test_use_json_report.py::test_pass_rate_of_30_words",
+                    "type": "Function"
+                }
+            ]
+        }
+    ],
+    "created": 1723531836.549531,
+    "duration": 17.205761909484863,
+    "environment": {},
+    "exitcode": 1,
+    "root": "/Users/wenzhe/dev/log10_eval_example",
+    "summary": {
+        "collected": 4,
+        "failed": 1,
+        "passed": 3,
+        "total": 4
+    },
+    "tests": [
+        {
+            "call": {
+                "crash": {
+                    "lineno": 0,
+                    "message": "\u001b[0mNumber of words is 35, expected <= 30\nassert False\n\u001b[31mtest_use_json_report.py\u001b[0m:65 in test_summarize_to_30_words() -> with check:\n\u001b[31mtest_use_json_report.py\u001b[0m:66 in test_summarize_to_30_words -> assert num_words_less_than_30, f\"Number of words is {num_words}, expected <= 30\"\n\u001b[31mAssertionError: Number of words is 35, expected <= 30\nassert False\n\u001b[0m\n\n------------------------------------------------------------\nFailed Checks: 1",
+                    "path": "tests/test_use_json_report.py::test_summarize_to_30_words[0]"
+                },
+                "duration": 6.695120791089721,
+                "longrepr": "\u001b[31mFAILURE: \u001b[0mNumber of words is 35, expected <= 30\nassert False\n\u001b[31mtest_use_json_report.py\u001b[0m:65 in test_summarize_to_30_words() -> with check:\n\u001b[31mtest_use_json_report.py\u001b[0m:66 in test_summarize_to_30_words -> assert num_words_less_than_30, f\"Number of words is {num_words}, expected <= 30\"\n\u001b[31mAssertionError: Number of words is 35, expected <= 30\nassert False\n\u001b[0m\n\n------------------------------------------------------------\nFailed Checks: 1",
+                "outcome": "failed"
+            },
+            "keywords": [
+                "test_summarize_to_30_words[0]",
+                "parametrize",
+                "pytestmark",
+                "0",
+                "test_use_json_report.py",
+                "tests",
+                "log10_eval_example",
+                ""
+            ],
+            "lineno": 42,
+            "metadata": {
+                "log10": {
+                    "last_completion_id": "https://log10.io/app/test-0/completions/45515561-5fc3-4709-8361-8eadf349e337"
+                }
+            },
+            "nodeid": "tests/test_use_json_report.py::test_summarize_to_30_words[0]",
+            "outcome": "failed",
+            "setup": {
+                "duration": 0.0008069159230217338,
+                "outcome": "passed"
+            },
+            "teardown": {
+                "duration": 0.0001188330352306366,
+                "outcome": "passed"
+            }
+        },
+        {
+            "call": {
+                "duration": 5.655736291082576,
+                "outcome": "passed"
+            },
+            "keywords": [
+                "test_summarize_to_30_words[1]",
+                "parametrize",
+                "pytestmark",
+                "1",
+                "test_use_json_report.py",
+                "tests",
+                "log10_eval_example",
+                ""
+            ],
+            "lineno": 42,
+            "metadata": {
+                "log10": {
+                    "last_completion_id": "https://log10.io/app/test-0/completions/29dded7a-2998-405c-a474-684ec0ba1682"
+                }
+            },
+            "nodeid": "tests/test_use_json_report.py::test_summarize_to_30_words[1]",
+            "outcome": "passed",
+            "setup": {
+                "duration": 0.0003689579898491502,
+                "outcome": "passed"
+            },
+            "teardown": {
+                "duration": 0.0006292080506682396,
+                "outcome": "passed"
+            }
+        },
+        {
+            "call": {
+                "duration": 4.296570708043873,
+                "outcome": "passed"
+            },
+            "keywords": [
+                "test_summarize_to_30_words[2]",
+                "parametrize",
+                "pytestmark",
+                "2",
+                "test_use_json_report.py",
+                "tests",
+                "log10_eval_example",
+                ""
+            ],
+            "lineno": 42,
+            "metadata": {
+                "log10": {
+                    "last_completion_id": "https://log10.io/app/test-0/completions/9d736109-d982-45e5-a013-db7415f66f2e"
+                }
+            },
+            "nodeid": "tests/test_use_json_report.py::test_summarize_to_30_words[2]",
+            "outcome": "passed",
+            "setup": {
+                "duration": 0.002584167057648301,
+                "outcome": "passed"
+            },
+            "teardown": {
+                "duration": 0.0004907089751213789,
+                "outcome": "passed"
+            }
+        },
+        {
+            "call": {
+                "duration": 0.008413875009864569,
+                "outcome": "passed"
+            },
+            "keywords": [
+                "test_pass_rate_of_30_words",
+                "test_use_json_report.py",
+                "tests",
+                "log10_eval_example",
+                ""
+            ],
+            "lineno": 69,
+            "nodeid": "tests/test_use_json_report.py::test_pass_rate_of_30_words",
+            "outcome": "passed",
+            "setup": {
+                "duration": 0.006148124928586185,
+                "outcome": "passed"
+            },
+            "teardown": {
+                "duration": 0.00025579100474715233,
+                "outcome": "passed"
+            }
+        }
+    ]
+}
